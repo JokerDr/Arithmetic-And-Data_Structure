@@ -1,75 +1,53 @@
+//单链表
 
-//1.链表翻转。给出一个链表和一个数k，比如，链表为1→2→3→4→5→6，
-// k = 2，则翻转后2→1→6→5→4→3，若k = 3，翻转后3→2→1→6→5→4，
-// 若k = 4，翻转后4→3→2→1→6→5，用程序实现。
+function linkedList(param) {
+    var Node = function (element) { 
+        this.element = element;//存放节点内容
+        this.next = null;//指针
+     }
+     var length = 0, //链表长度
+         head = null;//初始化 头指针
 
-//实现一个链表
-
-function LinkList(){
-
-    //Node类表示要添加的元素，他有两个属性，
-    // 一个是element，表示添加到链表中的具体的值；
-    // 另一个是next,表示要指向链表中下一个元素的指针。
-    let Node = function(element){
-        this.element = element;
-        this.next = null;
-    }
-
-    //初始化链表的长度
-    let length = 0;
-
-    //初始化第一个元素
-    let head  = null;
-
-    //
-    let append = function(){
-        //初始化添加的node实例
-        let node = new node(),
-        current;
-       
-        if(head === null){
-            //第一个Node实例进入链表，
-            //之后在这个LinkedList实例中head就不再是null了
-            head = node;
-        }else{
-            current = head;
-           //循环链表找到最后一项，循环结束current指向链表最后一项元素
-            while(current.next){
+         //添加
+     this.append = function(){
+         var node = new Node(element), //初始化添加的Node实例
+         current;//操作所用的指针
+         if(!head){
+             head = node;
+         }else{
+             current = head;
+             while (curent.next) { //循环链表直到找到最后一项，循环结束current指针指向链表最后一项元素
                 current = current.next;
-            }
-            //找到最后一项元素后，将它的next属性指向新元素node，建立链接
-            current.next = node;
-        }
-       length++;
-    };
-
-    this.insert = function (position, element) {
-        //检查是否越界，超过链表长度或是小于0肯定不符合逻辑的
-        if (position >= 0 && position <= length) {
-            let node = new Node(element),
-                current = head,
-                previous,
-                index = 0;
-            if (position === 0) {
-                //在第一个位置添加
+             }
+             current.next = node;//找到最后一项元素后，将他的next属性指向新元素node,建立链接
+         }
+         length++;
+         return true;
+     };
+     this.insert =  function (position,element) {
+         if(position>=0 &&position<=length){
+             let node = new Node(element),
+             current = head,
+             previous,
+             index = 0;
+            if(position === 0){
                 node.next = current;
                 head = node;
-            } else {
-                //循环链表，找到正确位置，循环完毕，previous，current分别是被添加元素的前一个和后一个元素
-                while (index++ < position) {
+            }else{
+                //循环链表，找到正确的位置，循环完毕，previous，current分别是被添加元素的前一个和后一个元素
+                while(index++ <position){
                     previous = current;
                     current = current.next;
                 }
                 node.next = current;
                 previous.next = node;
             }
-            //更新链表长度
             length++;
             return true;
-        } else {
-            return false;
-        }
-    };
+         }else{
+             return false
+         }
+       };
     this.removeAt = function (position) {
         //检查是否越界，超过链表长度或是小于0肯定不符合逻辑的
         if (position > -1 && position < length) {
@@ -134,5 +112,5 @@ function LinkList(){
     this.print = function () {
         console.log(this.toString());
     };
-}
-//一个实例化后的链表，里面是添加的数个Node类的实例
+
+  }
